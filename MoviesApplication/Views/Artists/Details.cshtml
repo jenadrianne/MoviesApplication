@@ -1,0 +1,65 @@
+﻿@model MoviesApplication.Models.Artist
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Artist</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistFirstName)
+        </dd>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th><center>Movie Title</center></th>
+                    <th><center>Movie Release Date</center></th>
+                    <th><center>Movie Rating</center></th>
+                </tr>
+
+                @foreach (var item in Model.MovieList)
+                {
+                    <tr>
+                        <td>
+                            <center>
+                                @Html.DisplayFor(modelItem => item.MovieTitle)
+                            </center>
+                        </td>
+                        <td>
+                            <center>
+                                @Html.DisplayFor(modelItem => item.MovieReleaseDate)
+                            </center>
+                        </td>
+                        <td>
+                            <center>
+                                @Html.DisplayFor(modelItem => item.Rate)
+                            </center>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,65 @@
+﻿@model MoviesApplication.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserLastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserLastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserFirstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserFirstname)
+        </dd>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th><center>Movie Title</center></th>
+                    <th><center>Movie Release Date</center></th>
+                    <th><center>Movie Rating</center></th>
+                </tr>
+
+                @foreach (var item in Model.MovieList)
+                {
+                    <tr>
+                        <td>
+                            <center>
+                                @Html.DisplayFor(modelItem => item.MovieTitle)
+                            </center>
+                        </td>
+                        <td>
+                            <center>
+                                @Html.DisplayFor(modelItem => item.MovieReleaseDate)
+                            </center>
+                        </td>
+                        <td>
+                            <center>
+                                @Html.DisplayFor(modelItem => item.Rate)
+                            </center>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

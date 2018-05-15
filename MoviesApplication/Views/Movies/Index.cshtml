@@ -1,0 +1,95 @@
+﻿@model PagedList.IPagedList<MoviesApplication.Models.Movies>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="h3">Movie List</span>
+
+        <span>
+            @Html.ActionLink("Create New", "Create", null, new { @class="btn btn-success pull-right"})
+        </span>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            <p>
+                Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" />
+            </p>
+        }
+
+        <hr />
+
+        <table class="table">
+            <tr>
+                <th>
+                    <center>
+                        Added by User
+                    </center>
+                </th>
+                <th>
+                    <center>
+                        @Html.ActionLink("Movie Title", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                    </center>
+                </th>
+                <th>
+                    <center>
+                        Movie Rate
+                    </center>
+                </th>
+                <th>
+                    <center>
+                        @Html.ActionLink("Release Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                    </center>
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <center>
+                            @Html.DisplayFor(modelItem => item.User.UserLastname)
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            @Html.DisplayFor(modelItem => item.MovieTitle)
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            @Html.DisplayFor(modelItem => item.Rate)
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            @Html.DisplayFor(modelItem => item.MovieReleaseDate)
+                        </center>
+                    </td>
+                    <td>
+                        <center>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.MoviesID }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Details", "Details", new { id = item.MoviesID }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MoviesID }, new { @class = "btn btn-danger" })
+                        </center>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
+
+
